@@ -1,0 +1,46 @@
+{
+	"EmployeeModel": [
+		{
+			"LastName": "Ивановский1",
+			"Name": "Иван",
+			"MiddleName": "Михайлович",
+			"WorkPlace": "Гибрид"
+		},
+		{
+			"LastName": "Ивановский2",
+			"Name": "Сергей",
+			"MiddleName": "Иванович",
+			"WorkPlace": "Удаленно"
+		},
+		{
+			"LastName": "Ивановский3",
+			"Name": "Николай",
+			"MiddleName": "Романович",
+			"WorkPlace": "Гибрид"
+		},
+		{
+			"LastName": "Ивановский4",
+			"Name": "Дмитрий",
+			"MiddleName": "Жучкович",
+			"WorkPlace": "Офис"
+		}
+	],
+	"Contacts": [
+		{
+			"Phone": "1-555-01-02",
+			"Email": "1-555-01-02@mail.ru"
+		},
+		{
+			"Phone": "1-555-01-03",
+			"Email": "1-555-01-03@mail.ru"
+		},
+		{
+			"Phone": "1-555-01-04",
+			"Email": "1-555-01-04@mail.ru"
+		},
+		{
+				"Phone": "1-555-01-05",
+				"Email": "1-555-01-05@mail.ru"
+		}		
+	]
+}

@@ -1,0 +1,235 @@
+﻿@page "{handler?}"
+
+@model EmployeePage
+@{
+    ViewData["Title"] = "Таблица Employee";
+}
+
+<style>
+.dialog-container {
+  display: flex;
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center; /* Вертикальное центрирование */
+  min-height: 100vh; /* Опционально: чтобы контейнер заполнял весь экран, даже при скролле страницы */
+}
+</style>
+<div class="text-center bg-info bg-gradient">
+    <h1 class="display-4">Список типов рабочих мест сотрудников</h1>
+    <button onclick="ButtonEmployeeClick()" class="btn btn-primary">обновить данные из Dictionary </button>
+    <button onclick="ButtonPartialClick()" class="btn btn-primary">Частничное представление </button>
+
+    <table id="TableEmployeePage" class="table table-success table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
+                <th scope="col">Тип рабочего места</th>
+            </tr>
+        </thead>
+        <tbody id="TableEmployeePageBody">
+            <tr align="left">
+                <th scope="row">1</th>
+                <td>Петров</td>
+                <td>Иван</td>
+                <td>Михайлович</td>
+                <td>Удаленное</td>
+            </tr>
+            <tr align="left">
+                <th scope="row">2</th>
+                <td>Иванов</td>
+                <td>Андрей</td>
+                <td>Валентинович</td>
+                <td>Офис</td>
+            </tr>
+            <tr align="left">
+                <th scope="row">3</th>
+                <td>Речкин</td>
+                <td>Аркадий</td>
+                <td>Иванович</td>
+                <td>Офис</td>
+            </tr>
+            <tr align="left">
+                <th scope="row">4</th>
+                <td>Мостов</td>
+                <td>Сергей</td>
+                <td>Викторович</td>
+                <td>Гибрид</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+   <input type="text" name="responceName" />
+    <p>Learn1 about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<button type="button" id="ModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Открыть модаль</button>
+<dialog id="pop-up">Привет, я поп-ап!</dialog>
+<div class="dialog-container">
+  <dialog class="my-dialog" id="modalExample">
+  <h2>Редактирование рабочего места сотрудника</h2>
+      <div class="col-12">
+        <label for="Lblfirst_name">Фамилия</label>
+      </div>
+      <div class="mb-14">
+          <input id="DialogLastName" type="text" class="form-control" value="" />
+      </div>
+      <div class="col-12">
+        <label for="Lblfirst_name">Имя</label>
+      </div>
+      <div class="mb-14">
+          <input id="DialogFirstName" type="text" class="form-control" value=""/>
+      </div>
+      <div class="col-12">
+        <label for="Lblmiddle_name">Отчество</label>
+      </div>
+      <div class="mb-14">
+          <input id="DialogMiddleName" type="text" class="form-control" value="" />
+      </div>
+      <div class="col-12">
+        <label for="LblWorkPlace">Тип рабочего места</label>
+      </div>
+      <div class="mb-14">
+          <input id="DialogWorkPlace" type="text" class="form-control" value="" />
+      </div>
+        <button onclick="modalExample.close()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button onclick="ButtonDialogSave()" type="button" class="btn btn-primary">Сохранить изменения</button>
+  </dialog>
+</div>
+
+<script>
+
+    var paramLastName = "";
+
+    function ButtonEmployeeClick() 
+    {
+        console.log('Клик! Элемент обработан.');
+   
+        $.ajax({
+            type: "GET",
+            url: "/EmployeePage?handler=StaticEmployees",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-RequestVerificationToken",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            contentType: "application/json",
+            dataType: "json",
+            success: function(response) {
+
+                const tbodyElement = document.getElementById("TableEmployeePageBody");
+
+                tbodyElement.innerHTML="";     
+                
+                var innerBody ="";
+
+                for (let i = 0; i < response.length; i++) {
+
+                    innerBody += '<tr align="left">' +
+                        '<th scope = "row">'+(i+1)+'</th >' +
+                        '<td>' + response[i].lastName + '</td>' +
+                        '<td>' + response[i].name + '</td>' +
+                        '<td>' + response[i].middleName + '</td>' +
+                        '<td>' + response[i].workPlace + '</td>' +
+                        '</tr >';
+                }
+
+                tbodyElement.innerHTML = innerBody;               
+            },
+            error: function(response) {
+                alert(response);
+            }
+        });        
+    
+    }
+
+    function ButtonPartialClick() 
+    {
+        paramLastName = "Kamensky";
+
+        /* data: JSON.stringify({ lastname: "Kamensky" }),*/
+        $.ajax({
+            type: "GET",
+            url: "/EmployeePage?handler=StaticEmployeesByLN",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-RequestVerificationToken",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            contentType: "application/json",
+            data: { "lastname": "" + paramLastName + "" },
+            dataType: "json",
+            success: function(response) {
+
+                document.getElementById("DialogLastName").value = response.lastName;
+                document.getElementById("DialogFirstName").value = response.name;
+                document.getElementById("DialogMiddleName").value = response.middleName;
+                document.getElementById("DialogWorkPlace").value = response.workPlace;
+
+                document.getElementById("modalExample").showModal();
+            },
+            error: function(response) {
+                alert(response);
+            }
+        });        
+    };
+
+    function ButtonDialogSave() 
+    {       
+        // method GET SaveEmployeeRow
+
+        var LastName = document.getElementById("DialogLastName").value;
+        var Name = document.getElementById("DialogFirstName").value;
+        var MiddleName = document.getElementById("DialogMiddleName").value;
+        var WorkPlace = document.getElementById("DialogWorkPlace").value;
+ 
+        var jsonString = '{"text":"' + paramLastName + '","LastName": "' + LastName +
+        '", "Name": "' + Name + 
+        '", "MiddleName": "' + MiddleName + 
+        '","WorkPlace": "' + WorkPlace + '"}';
+
+        console.log(jsonString);
+
+        $.ajax({
+            type: "GET",
+            url: "/EmployeePage?handler=SaveEmployeeRow",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-RequestVerificationToken",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            contentType: "application/json",
+            data : JSON.parse(jsonString),
+            dataType: "json",
+            success: function(response) 
+            {
+                modalExample.close();
+            },
+            error: function(response) {
+                alert(response);
+            }
+        });
+    //    alert('OK clicked');
+    };
+
+      $(document).ready(function() 
+      {        
+           $("#modal-dialog").dialog({
+                title: "jQuery UI Dialog",
+                autoOpen: true,
+                modal: true,
+                width: 1000
+                /*buttons: {
+                    Close: function () 
+                        {
+                            $(this).dialog('close');
+                        }, 
+                    OK: function () 
+                        {
+                    alert('OK clicked');
+                            $(this).dialog('close');
+                        }
+                    }*/
+                });  
+      });
+    /* Ctrl+F5
+    
+    location.reload();
+    */
+</script>

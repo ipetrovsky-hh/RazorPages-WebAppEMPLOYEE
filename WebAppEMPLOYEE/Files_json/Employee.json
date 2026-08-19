@@ -1,0 +1,26 @@
+[
+  {
+    "LastName": "Kamensky",
+    "Name": "John",
+    "MiddleName": "Mike",
+    "WorkPlace": "Online"
+  },
+  {
+    "LastName": "Smith",
+    "Name": "Jason",
+    "MiddleName": "Don",
+    "WorkPlace": "Office"
+  },
+  {
+    "LastName": "Andersson",
+    "Name": "Nik",
+    "MiddleName": "Rob",
+    "WorkPlace": "Cafe"
+  },
+  {
+    "LastName": "Lee",
+    "Name": "Jack",
+    "MiddleName": "Andru",
+    "WorkPlace": "Home"
+  }
+]

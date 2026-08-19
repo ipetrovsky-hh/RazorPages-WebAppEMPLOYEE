@@ -1,0 +1,28 @@
+{
+	"EmployeeModel": [
+		{
+			"LastName": "Ивановский1",
+			"Name": "Иван",
+			"MiddleName": "Михайлович",
+			"WorkPlace": "Гибрид"
+		},
+		{
+			"LastName": "Ивановский2",
+			"Name": "Сергей",
+			"MiddleName": "Иванович",
+			"WorkPlace": "Удаленно"
+		},
+		{
+			"LastName": "Ивановский3",
+			"Name": "Николай",
+			"MiddleName": "Романович",
+			"WorkPlace": "Гибрид"
+		},
+		{
+			"LastName": "Ивановский4",
+			"Name": "Дмитрий",
+			"MiddleName": "Жучкович",
+			"WorkPlace": "Офис"
+		}
+	]
+}
