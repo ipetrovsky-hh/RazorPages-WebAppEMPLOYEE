@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <BaseOutputPath>C:\Users\resum\source\repos\WebAppEMPLOYEE\WebAppEMPLOYEE\bin</BaseOutputPath>
+    <BaseOutputPath>\repos\WebAppEMPLOYEE\WebAppEMPLOYEE\bin</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
